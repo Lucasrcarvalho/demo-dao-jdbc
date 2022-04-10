@@ -94,7 +94,12 @@ public class SellerDAOJDBC implements SellerDAO {
 			
 			st.setInt(1, id);
 			
-			st.executeUpdate();
+			int rows = st.executeUpdate();
+			
+			//Verify if id exist in table before delete
+			if (rows == 0) {
+				throw new DbException("Delete Error! Id not exist");
+			}
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
 		} finally {
