@@ -2,6 +2,7 @@ package application;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 import model.dao.DAOFactory;
 import model.dao.SellerDAO;
@@ -13,6 +14,7 @@ public class Program {
 	public static void main(String[] args) {
 		
 		SellerDAO sellerDAO = DAOFactory.createSellerDAO(); //Uma forma de injeção de dependência para desacoplar o model do acesso jdbc
+		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("==== Test 1: Seller findById ====");
 		Seller seller = sellerDAO.findById(3);
@@ -41,5 +43,13 @@ public class Program {
 		seller.setName("Martha Waine");
 		//sellerDAO.update(seller);
 		System.out.println("Update completed!");
+		
+		System.out.println("\n==== Test 6: Seller delete ====");
+		System.out.println("Enter id for delete teste: ");
+		int id = sc.nextInt();
+		sellerDAO.deleteById(id);
+		System.out.println("Delete completed!");
+		
+		sc.close();
 	}
 }
